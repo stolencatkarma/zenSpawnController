@@ -16,10 +16,3 @@ permissions:
   zenspawn.config:
     description: Allows viewing and modifying spawn configurations
     default: op
-
-commands:
-  zenspawn:
-    description: Main command for ZenSpawnController
-    usage: /zenspawn <reload|config|help>
-    permission: zenspawn.admin
-    aliases: [zsc, spawncontrol]

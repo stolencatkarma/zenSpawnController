@@ -40,6 +40,23 @@ public class SpawnListener implements Listener {
         }
         
         EntityType entityType = event.getEntityType();
+
+        // Only allow creepers and skeletons to spawn underground
+        if (entityType == EntityType.CREEPER || entityType == EntityType.SKELETON) {
+            var loc = event.getLocation();
+            var world = loc.getWorld();
+            if (world != null) {
+                int highestY = world.getHighestBlockYAt(loc.getBlockX(), loc.getBlockZ());
+                if (loc.getBlockY() >= highestY) {
+                    // Cancel spawn if at or above surface
+                    event.setCancelled(true);
+                    if (configManager.isDebug()) {
+                        plugin.getLogger().info(entityType.name() + " spawn cancelled above ground at " + loc);
+                    }
+                    return;
+                }
+            }
+        }
         
         // Check if this monster type can spawn at this location
         if (!spawnManager.canSpawn(entityType, event.getLocation())) {

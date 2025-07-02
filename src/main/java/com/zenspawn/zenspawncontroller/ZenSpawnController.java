@@ -1,6 +1,7 @@
 package com.zenspawn.zenspawncontroller;
 
 import com.zenspawn.zenspawncontroller.commands.ZenSpawnCommand;
+import com.zenspawn.zenspawncontroller.commands.ZenSpawnPaperCommand;
 import com.zenspawn.zenspawncontroller.config.ConfigManager;
 import com.zenspawn.zenspawncontroller.listeners.SpawnListener;
 import com.zenspawn.zenspawncontroller.managers.SpawnManager;
@@ -26,8 +27,8 @@ public class ZenSpawnController extends JavaPlugin {
         // Register listeners
         getServer().getPluginManager().registerEvents(new SpawnListener(this), this);
         
-        // Register commands
-        getCommand("zenspawn").setExecutor(new ZenSpawnCommand(this));
+        // Register commands using Bukkit CommandMap (Paper 1.21+)
+        ZenSpawnPaperCommand.register(this);
         
         // Start spawn monitoring task
         spawnManager.startSpawnTask();
