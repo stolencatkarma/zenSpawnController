@@ -1,0 +1,25 @@
+name: ZenSpawnController
+version: '${project.version}'
+main: com.zenspawn.zenspawncontroller.ZenSpawnController
+api-version: '1.21'
+author: YourName
+description: A Paper plugin to control monster spawning mechanics
+website: https://github.com/yourusername/zenspawncontroller
+
+permissions:
+  zenspawn.admin:
+    description: Allows access to all ZenSpawnController commands
+    default: op
+  zenspawn.reload:
+    description: Allows reloading the plugin configuration
+    default: op
+  zenspawn.config:
+    description: Allows viewing and modifying spawn configurations
+    default: op
+
+commands:
+  zenspawn:
+    description: Main command for ZenSpawnController
+    usage: /zenspawn <reload|config|help>
+    permission: zenspawn.admin
+    aliases: [zsc, spawncontrol]

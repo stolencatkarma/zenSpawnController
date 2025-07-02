@@ -1,0 +1,22 @@
+# Build artifacts
+target/
+*.jar
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Maven
+dependency-reduced-pom.xml
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

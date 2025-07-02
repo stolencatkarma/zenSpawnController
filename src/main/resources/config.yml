@@ -1,0 +1,100 @@
+# ZenSpawnController Configuration
+# This plugin controls monster spawning mechanics
+
+# Global spawn settings
+global:
+  # Enable or disable the plugin
+  enabled: true
+  
+  # Debug mode - shows detailed spawn information
+  debug: false
+
+# Spawn control settings
+spawn_control:
+  # Enable spawn rate control
+  rate_control_enabled: true
+  
+  # Enable spawn limit control
+  limit_control_enabled: true
+  
+  # Spawn rate multiplier (1.0 = normal, 0.5 = half speed, 2.0 = double speed)
+  spawn_rate_multiplier: 1.0
+  
+  # Maximum monsters that can spawn around a player at once
+  max_monsters_per_player: 8
+  
+  # Radius around player to check for existing monsters (in blocks)
+  check_radius: 32
+  
+  # Delay between spawn checks (in ticks, 20 ticks = 1 second)
+  spawn_check_delay: 20
+
+# Per-monster type settings
+monster_settings:
+  # Zombie settings
+  ZOMBIE:
+    enabled: true
+    spawn_rate_multiplier: 1.0
+    max_count_per_player: 3
+    
+  # Skeleton settings
+  SKELETON:
+    enabled: true
+    spawn_rate_multiplier: 1.0
+    max_count_per_player: 2
+    
+  # Creeper settings
+  CREEPER:
+    enabled: true
+    spawn_rate_multiplier: 0.8
+    max_count_per_player: 2
+    
+  # Spider settings
+  SPIDER:
+    enabled: true
+    spawn_rate_multiplier: 1.0
+    max_count_per_player: 2
+    
+  # Enderman settings
+  ENDERMAN:
+    enabled: true
+    spawn_rate_multiplier: 0.5
+    max_count_per_player: 1
+    
+  # Witch settings
+  WITCH:
+    enabled: true
+    spawn_rate_multiplier: 0.3
+    max_count_per_player: 1
+
+# World-specific settings
+world_settings:
+  # Example world configuration
+  world:
+    enabled: true
+    spawn_rate_multiplier: 1.0
+    max_monsters_per_player: 8
+    
+  world_nether:
+    enabled: true
+    spawn_rate_multiplier: 1.2
+    max_monsters_per_player: 10
+    
+  world_the_end:
+    enabled: true
+    spawn_rate_multiplier: 0.8
+    max_monsters_per_player: 6
+
+# Time-based spawn control
+time_control:
+  # Enable time-based spawn modifications
+  enabled: true
+  
+  # Night time spawn rate multiplier (when it gets dark)
+  night_multiplier: 1.5
+  
+  # Day time spawn rate multiplier
+  day_multiplier: 0.3
+  
+  # Full moon spawn rate multiplier
+  full_moon_multiplier: 2.0
