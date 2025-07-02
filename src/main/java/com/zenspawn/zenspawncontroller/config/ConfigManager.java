@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ConfigManager {
@@ -139,6 +140,14 @@ public class ConfigManager {
     
     public WorldSettings getWorldSettings(String worldName) {
         return worldSettings.getOrDefault(worldName, new WorldSettings(true, 1.0, 8));
+    }
+    
+    public List<String> getEnabledRules() {
+        return config.getStringList("spawn-rules.advanced-rules.enabled");
+    }
+
+    public boolean isAdvancedRuleEnabled(String rule) {
+        return getEnabledRules().contains(rule);
     }
     
     // Inner classes for settings

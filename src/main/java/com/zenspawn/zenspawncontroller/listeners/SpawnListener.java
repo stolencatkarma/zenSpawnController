@@ -3,6 +3,7 @@ package com.zenspawn.zenspawncontroller.listeners;
 import com.zenspawn.zenspawncontroller.ZenSpawnController;
 import com.zenspawn.zenspawncontroller.config.ConfigManager;
 import com.zenspawn.zenspawncontroller.managers.SpawnManager;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Monster;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.block.Block;
 
 import java.util.Random;
 
@@ -41,19 +43,22 @@ public class SpawnListener implements Listener {
         
         EntityType entityType = event.getEntityType();
 
-        // Only allow creepers and skeletons to spawn underground
+        // Advanced rule: only allow creepers and skeletons to spawn underground and not on grass
         if (entityType == EntityType.CREEPER || entityType == EntityType.SKELETON) {
-            var loc = event.getLocation();
-            var world = loc.getWorld();
-            if (world != null) {
-                int highestY = world.getHighestBlockYAt(loc.getBlockX(), loc.getBlockZ());
-                if (loc.getBlockY() >= highestY) {
-                    // Cancel spawn if at or above surface
+            if (configManager.isAdvancedRuleEnabled("underground_only_creepers_skeletons")) {
+                Block spawnBlock = event.getLocation().getBlock();
+                Block highestBlock = spawnBlock.getWorld().getHighestBlockAt(spawnBlock.getX(), spawnBlock.getZ());
+                Block blockBelow = event.getLocation().subtract(0, 1, 0).getBlock();
+
+                boolean isAboveGround = spawnBlock.getY() >= highestBlock.getY();
+                boolean isOnGrass = blockBelow.getType() == Material.GRASS_BLOCK;
+
+                if (isAboveGround || isOnGrass) {
                     event.setCancelled(true);
                     if (configManager.isDebug()) {
-                        plugin.getLogger().info(entityType.name() + " spawn cancelled above ground at " + loc);
+                        String reason = isAboveGround ? "it was not underground" : "it was on a grass block";
+                        plugin.getLogger().info("Cancelled " + entityType + " spawn at " + event.getLocation() + " because " + reason + ".");
                     }
-                    return;
                 }
             }
         }
